@@ -26,11 +26,11 @@ func main() {
 	}
 
 	var textFormat []byte
-	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar", pgx.QueryResultFormats{pgx.TextFormatCode}).Scan(&textFormat)
+	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar").Scan(&textFormat)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(string(textFormat))
+	fmt.Println(textFormat, string(textFormat))
 
 	var binaryFormat []byte
 	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar", pgx.QueryResultFormats{pgx.BinaryFormatCode}).Scan(&binaryFormat)
