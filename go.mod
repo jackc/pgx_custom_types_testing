@@ -1,4 +1,4 @@
-module github.com/jackc/pgx_custom_types_experiment
+module github.com/jackc/pgx_custom_types_testing
 
 go 1.13
 
