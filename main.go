@@ -25,19 +25,18 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	var textFormat []byte
-	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar").Scan(&textFormat)
+	var buf []byte
+	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar").Scan(&buf)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(textFormat, string(textFormat))
+	fmt.Println(buf, string(buf))
 
-	var binaryFormat []byte
-	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar", pgx.QueryResultFormats{pgx.BinaryFormatCode}).Scan(&binaryFormat)
+	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar", pgx.QueryResultFormats{pgx.BinaryFormatCode}).Scan(&buf)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(binaryFormat)
+	fmt.Println(buf)
 
 	var record pgtype.Record
 	err = conn.QueryRow(context.Background(), "select '(hey,42)'::foobar", pgx.QueryResultFormats{pgx.BinaryFormatCode}).Scan(&record)
